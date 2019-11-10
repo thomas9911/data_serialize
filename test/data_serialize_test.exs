@@ -6,7 +6,8 @@ defmodule DataSerializeTest do
   end
 
   test "simple cbor string to map" do
-    assert {:ok, %{"test" => "testing"}} == DataSerialize.cbor_hex_to_map("A164746573746774657374696E67")
+    assert {:ok, %{"test" => "testing"}} ==
+             DataSerialize.cbor_hex_to_map("A164746573746774657374696E67")
   end
 
   test "simple toml string to map" do
@@ -22,7 +23,8 @@ defmodule DataSerializeTest do
   end
 
   test "simple map to cbor string" do
-    assert {:ok, "A164746573746774657374696E67"} == DataSerialize.map_to_cbor_hex(%{"test" => "testing"})
+    assert {:ok, "A164746573746774657374696E67"} ==
+             DataSerialize.map_to_cbor_hex(%{"test" => "testing"})
   end
 
   test "simple map to toml string" do
@@ -33,15 +35,14 @@ defmodule DataSerializeTest do
     assert {:ok, "---\ntest: testing"} == DataSerialize.map_to_yaml(%{"test" => "testing"})
   end
 
-
   test "invalid toml" do
     invalid_toml_map = %{
-        "test" => "testing",
-        "list" => [1,2,3,4],
-        "nested" => %{
-            "nesting" => ["a", "b"],
-            "other" => "one"
-        }
+      "test" => "testing",
+      "list" => [1, 2, 3, 4],
+      "nested" => %{
+        "nesting" => ["a", "b"],
+        "other" => "one"
+      }
     }
 
     assert {:error, _toml} = DataSerialize.map_to_toml(invalid_toml_map)
