@@ -1,0 +1,17 @@
+[package]
+name = "data_serialize"
+version = "0.1.0"
+authors = []
+edition = "2018"
+
+[lib]
+name = "data_serialize"
+path = "src/lib.rs"
+crate-type = ["dylib"]
+
+[dependencies]
+rustler = "0.21"
+serde-datatransform = { git = "https://github.com/thomas9911/serde-datatransform.git"}
+serde_rustler = { git = "https://github.com/scrogson/serde_rustler.git", branch = "rustler_0_21"}
+lazy_static = "1.0"
+serde-value = "0.6"
