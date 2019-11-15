@@ -10,5 +10,5 @@ WORKDIR /usr/src/data
 
 COPY . .
 
-RUN mix do deps.get, deps.compile, compile 
+RUN mix do deps.get, deps.compile, compile, test 
 CMD iex -S mix
