@@ -5,5 +5,10 @@ RUN apk update \
     && mix local.hex --force
 
 RUN apk add cargo
+
+WORKDIR /usr/src/data
+
+COPY . .
+
 RUN mix do deps.get, deps.compile, compile 
 CMD iex -S mix
