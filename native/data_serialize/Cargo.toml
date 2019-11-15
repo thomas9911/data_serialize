@@ -7,7 +7,7 @@ edition = "2018"
 [lib]
 name = "data_serialize"
 path = "src/lib.rs"
-crate-type = ["lib"]
+crate-type = ["cdylib"]
 
 [dependencies]
 rustler = "0.21"
