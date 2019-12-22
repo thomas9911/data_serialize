@@ -3,7 +3,7 @@ data = [%{"_id" => "5dc873aa426a7c6654218e84", "about" => "Minim laboris sunt qu
 
 
 Benchee.run(%{
-    "jason"    => fn -> {:ok, _ } = Jason.encode(data) end,
-    "poison"    => fn -> {:ok, _ } = Poison.encode(data) end,
+    "jason"      => fn -> {:ok, _ } = Jason.encode(data) end,
+    "poison"     => fn -> {:ok, _ } = Poison.encode(data) end,
     "rust-serde" => fn -> {:ok, _ } =  DataSerialize.map_to_json(data) end
   })

@@ -9,7 +9,7 @@ defmodule DataSerialize.MixProject do
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       compilers: [:rustler] ++ Mix.compilers(),
-      rustler_crates: [data_serialize: [path: "native/data_serialize", mode: :release]],
+      rustler_crates: rustler_crates(),
       source_url: "https://github.com/thomas9911/data_serialize",
       package: package()
     ]
@@ -26,10 +26,11 @@ defmodule DataSerialize.MixProject do
   defp deps do
     [
       {:rustler, "~> 0.21"},
+      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
+      # Only needed for benchmarking
       {:benchee, "~> 1.0", only: :dev},
       {:poison, "~> 4.0", only: :dev},
-      {:jason, "~> 1.1", only: :dev},
-      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
+      {:jason, "~> 1.1", only: :dev}
     ]
   end
 
@@ -37,8 +38,32 @@ defmodule DataSerialize.MixProject do
     [
       description:
         "Package for serializing and deserializing data formats using Rust's serde libraries",
+      files: [
+        "lib",
+        "native/data_serialize/Cargo.*",
+        "native/data_serialize/src",
+        "mix.exs",
+        "README.md",
+        "LICENSE"
+      ],
       licenses: ["Unlicense"],
-      links: %{"github" => "https://github.com/thomas9911/data_serialize"}
+      links: %{"Github" => "https://github.com/thomas9911/data_serialize"}
     ]
   end
+
+  defp rustler_crates do
+    [
+      data_serialize: [
+        path: "native/data_serialize",
+        cargo: :system,
+        default_features: true,
+        features: [],
+        mode: rust_mode(Mix.env())
+      ]
+    ]
+  end
+
+  defp rust_mode(:prod), do: :release
+  defp rust_mode(:test), do: :release
+  defp rust_mode(:dev), do: :release
 end
