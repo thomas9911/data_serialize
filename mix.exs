@@ -11,7 +11,8 @@ defmodule DataSerialize.MixProject do
       compilers: [:rustler] ++ Mix.compilers(),
       rustler_crates: rustler_crates(),
       source_url: "https://github.com/thomas9911/data_serialize",
-      package: package()
+      package: package(),
+      aliases: aliases()
     ]
   end
 
@@ -29,6 +30,7 @@ defmodule DataSerialize.MixProject do
       {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
       # Only needed for benchmarking
       {:benchee, "~> 1.0", only: :dev},
+      {:benchee_html, "~> 1.0", only: :dev},
       {:poison, "~> 4.0", only: :dev},
       {:jason, "~> 1.1", only: :dev}
     ]
@@ -60,6 +62,12 @@ defmodule DataSerialize.MixProject do
         features: [],
         mode: rust_mode(Mix.env())
       ]
+    ]
+  end
+
+  defp aliases do
+    [
+      bench: ["run bench/json_decode.exs", "run bench/json_encode.exs"]
     ]
   end
 

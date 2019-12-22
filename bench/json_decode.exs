@@ -1,3 +1,4 @@
+data_small = "[{\"test\": \"testing\", \"id\": 1}]"
 
 data = ~S"""
     [
@@ -319,10 +320,24 @@ data = ~S"""
       ]
 """
 
+data_large = File.read!("bench/generated.json")
 
 
 Benchee.run(%{
-    "jason"      => fn -> {:ok, _ } = Jason.decode(data) end,
-    "poison"     => fn -> {:ok, _ } = Poison.decode(data) end,
-    "rust-serde" => fn -> {:ok, _ } =  DataSerialize.json_to_map(data) end
-  })
+    "jason"      => fn(data) -> {:ok, _ } = Jason.decode(data) end,
+    "poison"     => fn(data) -> {:ok, _ } = Poison.decode(data) end,
+    "rust-serde" => fn(data) -> {:ok, _ } =  DataSerialize.json_to_map(data) end
+  },
+  inputs: %{
+    "Small" => data_small,
+    "Medium" => data,
+    "Large"  => data_large,
+  },
+  formatters: [
+    {Benchee.Formatters.HTML, file: "bench/decode/decode.html"},
+    Benchee.Formatters.Console
+  ],
+  print: %{
+    fast_warning: false
+  }
+)

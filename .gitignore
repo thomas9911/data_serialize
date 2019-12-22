@@ -22,3 +22,9 @@ erl_crash.dump
 # Ignore package tarball (built via "mix hex.build").
 data_serialize-*.tar
 
+/priv
+/bench/decode/
+/bench/encode/
+/native/data_serialize/Cargo.lock
+/native/data_serialize/.cargo/
+/native/data_serialize/target/
