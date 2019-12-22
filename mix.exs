@@ -9,7 +9,9 @@ defmodule DataSerialize.MixProject do
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       compilers: [:rustler] ++ Mix.compilers(),
-      rustler_crates: [data_serialize: [path: "native/data_serialize", mode: :release]]
+      rustler_crates: [data_serialize: [path: "native/data_serialize", mode: :release]],
+      source_url: "https://github.com/thomas9911/data_serialize",
+      package: package()
     ]
   end
 
@@ -26,7 +28,17 @@ defmodule DataSerialize.MixProject do
       {:rustler, "~> 0.21"},
       {:benchee, "~> 1.0", only: :dev},
       {:poison, "~> 4.0", only: :dev},
-      {:jason, "~> 1.1", only: :dev}
+      {:jason, "~> 1.1", only: :dev},
+      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
+    ]
+  end
+
+  defp package do
+    [
+      description:
+        "Package for serializing and deserializing data formats using Rust's serde libraries",
+      licenses: ["Unlicense"],
+      links: %{"github" => "https://github.com/thomas9911/data_serialize"}
     ]
   end
 end

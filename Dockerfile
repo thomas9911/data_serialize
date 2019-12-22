@@ -10,5 +10,6 @@ WORKDIR /usr/src/data
 
 COPY . .
 
-RUN mix do deps.get, deps.compile, compile, test 
+RUN mix do deps.get, deps.compile, compile
+RUN MIX_ENV=test mix test
 CMD iex -S mix

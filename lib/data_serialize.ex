@@ -1,6 +1,6 @@
 defmodule DataSerialize do
   @moduledoc """
-  Documentation for DataSerialize.
+  Package for serializing and deserializing data formats using Rust's serde libraries.
   """
 
   use Rustler, otp_app: :data_serialize, crate: "data_serialize"
